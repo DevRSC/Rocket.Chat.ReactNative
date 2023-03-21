@@ -360,7 +360,7 @@ class NewServerView extends React.Component<INewServerViewProps, INewServerViewS
 							}
 						]}
 					>
-						Rocket.Chat
+						AIDA.Connect
 					</Text>
 					<Text
 						style={[
