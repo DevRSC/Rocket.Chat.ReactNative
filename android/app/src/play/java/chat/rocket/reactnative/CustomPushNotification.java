@@ -1,4 +1,4 @@
-package chat.rocket.reactnative;
+package aida.connect.temarotech;
 
 import static com.wix.reactnativenotifications.Defs.NOTIFICATION_RECEIVED_EVENT_NAME;
 

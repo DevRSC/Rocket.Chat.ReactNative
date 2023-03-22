@@ -1,4 +1,4 @@
-package chat.rocket.reactnative.share;
+package aida.connect.temarotech.share;
 
 import com.facebook.react.ReactActivity;
 

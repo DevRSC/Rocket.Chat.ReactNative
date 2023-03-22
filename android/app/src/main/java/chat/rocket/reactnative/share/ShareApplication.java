@@ -1,6 +1,6 @@
-package chat.rocket.reactnative.share;
+package aida.connect.temarotech.share;
 
-import chat.rocket.reactnative.BuildConfig;
+import aida.connect.temarotech.BuildConfig;
 
 import chat.rocket.SharePackage;
 

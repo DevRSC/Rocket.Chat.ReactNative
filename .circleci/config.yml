@@ -127,7 +127,7 @@ commands:
               echo -e "KEY_ALIAS=$KEYSTORE_OFFICIAL_ALIAS" >> ./gradle.properties
               echo -e "KEY_PASSWORD=$KEYSTORE_OFFICIAL_PASSWORD" >> ./gradle.properties
             else
-              echo -e "APPLICATION_ID=chat.rocket.reactnative" >> ./gradle.properties
+              echo -e "APPLICATION_ID=aida.connect.temarotech" >> ./gradle.properties
               echo -e "BugsnagAPIKey=$BUGSNAG_KEY" >> ./gradle.properties
               echo $KEYSTORE_EXPERIMENTAL_BASE64 | base64 --decode > ./app/$KEYSTORE_EXPERIMENTAL
               echo -e "KEYSTORE=$KEYSTORE_EXPERIMENTAL" >> ./gradle.properties
@@ -206,7 +206,7 @@ commands:
             if [[ $APP_STORE_CONNECT_API_KEY_BASE64 ]]; then
               if [[ $CIRCLE_JOB == "ios-build-official" ]]; then
                 echo $GOOGLE_SERVICES_IOS | base64 --decode > GoogleService-Info.plist
-              else 
+              else
                 echo $GOOGLE_SERVICES_IOS_EXPERIMENTAL | base64 --decode > GoogleService-Info.plist
               fi
             fi
@@ -473,7 +473,7 @@ jobs:
             echo -e "newArchEnabled=false" >> ./gradle.properties
             echo -e "FLIPPER_VERSION=0.125.0" >> ./gradle.properties
             echo -e "VERSIONCODE=$CIRCLE_BUILD_NUM" >> ./gradle.properties
-            echo -e "APPLICATION_ID=chat.rocket.reactnative" >> ./gradle.properties
+            echo -e "APPLICATION_ID=aida.connect.temarotech" >> ./gradle.properties
             echo -e "BugsnagAPIKey=$BUGSNAG_KEY" >> ./gradle.properties
             echo $KEYSTORE_EXPERIMENTAL_BASE64 | base64 --decode > ./app/$KEYSTORE_EXPERIMENTAL
             echo -e "KEYSTORE=$KEYSTORE_EXPERIMENTAL" >> ./gradle.properties
@@ -588,7 +588,7 @@ jobs:
           root: /Users/distiller/project
           paths:
             - ios/build/Build/Products/Release-iphonesimulator/Rocket.Chat Experimental.app
-  
+
   e2e-test-ios:
     executor: mac-env
     parallelism: 5

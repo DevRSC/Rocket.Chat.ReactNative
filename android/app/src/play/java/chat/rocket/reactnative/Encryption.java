@@ -1,4 +1,4 @@
-package chat.rocket.reactnative;
+package aida.connect.temarotech;
 
 import android.database.Cursor;
 import android.util.Base64;

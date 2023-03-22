@@ -1,4 +1,4 @@
-package chat.rocket.reactnative;
+package aida.connect.temarotech;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

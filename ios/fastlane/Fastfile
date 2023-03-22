@@ -17,12 +17,12 @@ default_platform :ios
 
 platform :ios do
   before_all do
-    setup_circle_ci	
-    create_keychain(	
-      name: ENV["MATCH_KEYCHAIN_NAME"],	
-      password: ENV["MATCH_KEYCHAIN_PASSWORD"],	
-      timeout: 1200	
-    )	
+    setup_circle_ci
+    create_keychain(
+      name: ENV["MATCH_KEYCHAIN_NAME"],
+      password: ENV["MATCH_KEYCHAIN_PASSWORD"],
+      timeout: 1200
+    )
   end
 
   desc "Submit a new Beta Build to Apple TestFlight"
@@ -35,7 +35,7 @@ platform :ios do
     )
     pilot(
       ipa: 'ios/Rocket.Chat.ipa',
-      app_identifier: options[:official] ? 'chat.rocket.ios' : 'chat.rocket.reactnative',
+      app_identifier: options[:official] ? 'chat.rocket.ios' : 'aida.connect.temarotech',
       skip_waiting_for_build_processing: true
     )
     upload_symbols_to_crashlytics(dsym_path: "./ios/Rocket.Chat.app.dSYM.zip")
@@ -55,8 +55,8 @@ platform :ios do
       in_house: false
     )
     match(type: "appstore")
-    get_provisioning_profile(app_identifier: "chat.rocket.reactnative.ShareExtension")
-    get_provisioning_profile(app_identifier: "chat.rocket.reactnative.NotificationService")
+    get_provisioning_profile(app_identifier: "aida.connect.temarotech.ShareExtension")
+    get_provisioning_profile(app_identifier: "aida.connect.temarotech.NotificationService")
     # pem(api_key: api_key) # still uses Spaceship http://docs.fastlane.tools/actions/pem/#how-does-it-work
     gym(
       scheme: "RocketChatRN",
@@ -104,10 +104,10 @@ platform :ios do
   end
 
   after_all do |lane|
-    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])	
-  end	
+    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
+  end
 
   error do |lane, exception|
-    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])	
+    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
   end
 end

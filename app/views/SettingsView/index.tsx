@@ -2,7 +2,6 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import CookieManager from '@react-native-cookies/cookies';
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
-import { Linking, Share } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -17,17 +16,16 @@ import StatusBar from '../../containers/StatusBar';
 import { LISTENER } from '../../containers/Toast';
 import { RootEnum } from '../../definitions';
 import I18n from '../../i18n';
-import { APP_STORE_LINK, FDROID_MARKET_LINK, isFDroidBuild, LICENSE_LINK, PLAY_MARKET_LINK } from '../../lib/constants';
+import { LICENSE_LINK } from '../../lib/constants';
 import database from '../../lib/database';
 import { useAppSelector } from '../../lib/hooks';
 import { clearCache } from '../../lib/methods';
 import { deleteAllAudioFiles } from '../../lib/methods/audioFile';
-import { getDeviceModel, getReadableVersion, isAndroid } from '../../lib/methods/helpers';
+import { getReadableVersion } from '../../lib/methods/helpers';
 import EventEmitter from '../../lib/methods/helpers/events';
-import { showConfirmationAlert, showErrorAlert } from '../../lib/methods/helpers/info';
+import { showConfirmationAlert } from '../../lib/methods/helpers/info';
 import { events, logEvent } from '../../lib/methods/helpers/log';
 import openLink from '../../lib/methods/helpers/openLink';
-import { onReviewPress } from '../../lib/methods/helpers/review';
 import { Services } from '../../lib/services';
 import { getUserSelector } from '../../selectors/login';
 import { SettingsStackParamList } from '../../stacks/types';
@@ -115,35 +113,6 @@ const SettingsView = (): React.ReactElement => {
 		navigation.navigate(screen);
 	};
 
-	const sendEmail = async () => {
-		logEvent(events.SE_CONTACT_US);
-		const subject = encodeURI('Rocket.Chat Mobile App Support');
-		const email = encodeURI('support@rocket.chat');
-		const description = encodeURI(`
-			version: ${getReadableVersion}
-			device: ${getDeviceModel}
-		`);
-		try {
-			await Linking.openURL(`mailto:${email}?subject=${subject}&body=${description}`);
-		} catch (e) {
-			logEvent(events.SE_CONTACT_US_F);
-			showErrorAlert(I18n.t('error-email-send-failed', { message: 'support@rocket.chat' }));
-		}
-	};
-
-	const shareApp = () => {
-		let message;
-		if (isAndroid) {
-			message = PLAY_MARKET_LINK;
-			if (isFDroidBuild) {
-				message = FDROID_MARKET_LINK;
-			}
-		} else {
-			message = APP_STORE_LINK;
-		}
-		Share.share({ message });
-	};
-
 	const saveToClipboard = async (content: string) => {
 		await Clipboard.setString(content);
 		EventEmitter.emit(LISTENER, { message: I18n.t('Copied_to_clipboard') });
@@ -193,23 +162,16 @@ const SettingsView = (): React.ReactElement => {
 
 				<List.Section>
 					<List.Separator />
-					<List.Item title='Contact_us' onPress={sendEmail} showActionIndicator testID='settings-view-contact' />
-					<List.Separator />
+
 					<List.Item
 						title='Language'
 						onPress={() => navigateToScreen('LanguageView')}
 						showActionIndicator
 						testID='settings-view-language'
 					/>
+
 					<List.Separator />
-					{!isFDroidBuild ? (
-						<>
-							<List.Item title='Review_this_app' showActionIndicator onPress={onReviewPress} testID='settings-view-review-app' />
-						</>
-					) : null}
-					<List.Separator />
-					<List.Item title='Share_this_app' showActionIndicator onPress={shareApp} testID='settings-view-share-app' />
-					<List.Separator />
+
 					<List.Item
 						title='Default_browser'
 						showActionIndicator
